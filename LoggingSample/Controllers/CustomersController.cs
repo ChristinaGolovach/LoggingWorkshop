@@ -15,16 +15,27 @@ namespace LoggingSample.Controllers
     [RoutePrefix("api/customers")]
     public class CustomersController : ApiController
     {
-        private readonly AppDbContext _context = new AppDbContext();
+        //TODO DI
         private readonly CustomerService _customerService = new CustomerService();
         private static Logger Logger = LogManager.GetCurrentClassLogger();
 
         [Route("")]
         public async Task<IHttpActionResult> Get()
         {
-            var customers = (await _context.Customers.ToListAsync()).Select(item => item.Map()).Select(InitCustomer);
+            Logger.Info("Start getting all customers.");
 
-            return Ok(customers);
+            try
+            {
+                var customers = (await _customerService.GetAllCustomersAsync()).Select(InitCustomer);
+
+                return Ok(customers);
+            }
+            catch(Exception ex)
+            {
+                Logger.Error(ex, "Some error occured while getting all customers.");
+
+                throw;
+            }
         }
 
         [Route("{customerId}", Name = "Customer")]
@@ -62,7 +73,6 @@ namespace LoggingSample.Controllers
             }
         }
 
-
         private object InitCustomer(CustomerModel model)
         {
             return new
@@ -76,8 +86,7 @@ namespace LoggingSample.Controllers
         protected override void Dispose(bool disposing)
         {
             if (disposing)
-            {
-                _context.Dispose();
+            {                
                 _customerService.Dispose();
             }
             base.Dispose(disposing);

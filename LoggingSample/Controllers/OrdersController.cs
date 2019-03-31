@@ -1,45 +1,74 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
-using System.Web.Http.Description;
 using System.Web.Http.Routing;
-using LoggingSample_BLL.Helpers;
 using LoggingSample_BLL.Models;
-using LoggingSample_DAL.Context;
-using LoggingSample_DAL.Entities;
+using LoggingSample_BLL.Services;
+using NLog;
 
 namespace LoggingSample.Controllers
 {
     [RoutePrefix("api")]
     public class OrdersController : ApiController
     {
-        private readonly AppDbContext _context = new AppDbContext();
+        //TODO DI
+        private readonly OrderService _orderService = new OrderService();
+        private readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
         [Route("customers/{customerId}/orders", Name = "Orders")]
         public async Task<IHttpActionResult> Get(int customerId)
         {
-            var customers = (await _context.Orders.Where(item => item.CustomerId == customerId).ToListAsync()).Select(item => item.Map()).Select(InitOrder);
+            Logger.Info("Start getting all orders.");
 
-            return Ok(customers);
+            try
+            {
+                var orders = (await _orderService.GetAllOrdersAsync(customerId)).Select(InitOrder);
+
+                return Ok(orders);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex, "Some error occured while getting all orders.");
+
+                throw;
+            }
         }
 
         [Route("customers/{customerId}/orders/{orderId}", Name = "Order")]
         public async Task<IHttpActionResult> Get(int customerId, int orderId)
         {
-            var customer = (await _context.Orders.SingleOrDefaultAsync(item => item.Id == orderId && item.CustomerId == customerId)).Map();
+            Logger.Info($"Start getting order with id {orderId} and customer {customerId}.");
 
-            if (customer == null) {
-                return NotFound();
+            try
+            {
+                var order = await _orderService.GetOrderAsync(customerId, orderId);
+
+                if (order == null)
+                {
+                    Logger.Info($"No customorder with id {orderId} and customerId {customerId} was found.");
+                    return NotFound();
+                }
+
+                Logger.Info($"Retrieving corder with id {orderId} and customer {customerId} to response.");
+
+                return Ok(InitOrder(order));
             }
-
-            return Ok(InitOrder(customer));
+            catch (OrderServiceException ex)
+            {
+                if (ex.Type == OrderServiceException.ErrorType.WrongCustomerId)
+                {
+                    Logger.Warn($"Wrong customerId has been request: {customerId}", ex);
+                    return BadRequest($"Wrong customerId has been request: {customerId}");
+                }
+                throw;
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex, $"Some error occured while getting order {orderId} and customer {customerId}.");
+                throw;
+            }
         }
 
         private object InitOrder(OrderModel model)
@@ -56,7 +85,7 @@ namespace LoggingSample.Controllers
         {
             if (disposing)
             {
-                _context.Dispose();
+                _orderService.Dispose();
             }
             base.Dispose(disposing);
         }

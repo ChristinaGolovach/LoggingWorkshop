@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data.Entity;
-using System.Runtime.Remoting.Messaging;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using LoggingSample_BLL.Helpers;
 using LoggingSample_BLL.Models;
@@ -10,11 +11,20 @@ namespace LoggingSample_BLL.Services
 {
     public class CustomerService : IDisposable
     {
+        //TODO DI
         private readonly AppDbContext _context = new AppDbContext();
+        private readonly int wrongCustomerId = 56;
 
+        public async Task<IEnumerable<CustomerModel>> GetAllCustomersAsync()
+        {
+            var result = (await _context.Customers.ToListAsync()).Select(item => item.Map());
+          
+            return result;
+        }
+        
         public Task<CustomerModel> GetCustomer(int customerId)
         {
-            if (customerId == 56)
+            if (customerId == wrongCustomerId)
             {
                 throw new CustomerServiceException("Wrong id has been requested",
                     CustomerServiceException.ErrorType.WrongCustomerId);
