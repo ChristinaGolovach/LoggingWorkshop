@@ -291,14 +291,17 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DependencyResolver\DependencyResolver.csproj">
+      <Project>{a529753b-5379-493b-9751-625d67bfdc21}</Project>
+      <Name>DependencyResolver</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LoggingSample_BLL\LoggingSample_BLL.csproj">
       <Project>{f4768602-97c6-4caf-8dc5-3900c203397a}</Project>
       <Name>LoggingSample_BLL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\LoggingSample_DAL\LoggingSample_DAL.csproj">
-      <Project>{1caf12b4-e8e6-42d5-b539-6371c66dd1b9}</Project>
-      <Name>LoggingSample_DAL</Name>
-    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

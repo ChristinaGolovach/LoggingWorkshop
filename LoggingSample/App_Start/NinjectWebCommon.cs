@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
+using DependencyResolver;
 using LoggingSample.App_Start;
 using LoggingSample_BLL.Services;
 using LoggingSample_BLL.Services.Interfaces;
@@ -39,7 +40,8 @@ namespace LoggingSample.App_Start
             kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
             kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
 
-            RegisterServices(kernel);
+            //RegisterServices(kernel);
+            kernel.ConfigurateResolver();
 
             GlobalConfiguration.Configuration.DependencyResolver = new NinjectDependencyResolver(kernel);       
             
@@ -47,8 +49,6 @@ namespace LoggingSample.App_Start
         }
         private static void RegisterServices(IKernel kernel)
         {
-            kernel.Bind<ICustomerService>().To<CustomerService>();
-            kernel.Bind<IOrderService>().To<OrderService>();
         }
     }
 }

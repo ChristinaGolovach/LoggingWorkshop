@@ -5,20 +5,24 @@ using System.Linq;
 using System.Threading.Tasks;
 using LoggingSample_BLL.Helpers;
 using LoggingSample_BLL.Models;
-using LoggingSample_DAL.Context;
 using LoggingSample_BLL.Services.Interfaces;
+using LoggingSample_DAL.Entities;
 
 namespace LoggingSample_BLL.Services
 {
     public class CustomerService : ICustomerService
     {
-        //TODO DI
-        private readonly AppDbContext _context = new AppDbContext();
+        private readonly DbContext _context;
         private readonly int wrongCustomerId = 56;
+
+        public CustomerService(DbContext dbContext)
+        {
+            _context = dbContext ?? throw new ArgumentNullException($"The {nameof(dbContext)} can not be null.");
+        }
 
         public async Task<IEnumerable<CustomerModel>> GetAllCustomersAsync()
         {
-            var result = (await _context.Customers.ToListAsync()).Select(item => item.Map());
+            var result = (await _context.Set<Customer>().ToListAsync()).Select(item => item.Map());
           
             return result;
         }
@@ -31,7 +35,7 @@ namespace LoggingSample_BLL.Services
                     CustomerServiceException.ErrorType.WrongCustomerId);
             }
 
-            return _context.Customers.SingleOrDefaultAsync(item => item.Id == customerId).ContinueWith(task =>
+            return _context.Set<Customer>().SingleOrDefaultAsync(item => item.Id == customerId).ContinueWith(task =>
             {
                 var customer = task.Result;
 
