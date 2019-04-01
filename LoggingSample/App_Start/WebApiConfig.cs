@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http.Headers;
 using System.Web.Http;
+using Ninject;
+using Ninject.Web.WebApi;
 
 namespace LoggingSample
 {
@@ -22,6 +24,9 @@ namespace LoggingSample
             );
 
             config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("text/html"));
+
+            //var kernel = new StandardKernel();
+            //config.DependencyResolver = new NinjectDependencyResolver(kernel);
         }
     }
 }

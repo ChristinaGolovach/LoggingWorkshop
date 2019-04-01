@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 using LoggingSample_BLL.Helpers;
 using LoggingSample_BLL.Models;
 using LoggingSample_DAL.Context;
+using LoggingSample_BLL.Services.Interfaces;
 
 namespace LoggingSample_BLL.Services
 {
-    public class CustomerService : IDisposable
+    public class CustomerService : ICustomerService
     {
         //TODO DI
         private readonly AppDbContext _context = new AppDbContext();

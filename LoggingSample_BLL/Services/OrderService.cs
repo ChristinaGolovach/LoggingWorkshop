@@ -1,5 +1,6 @@
 ﻿using LoggingSample_BLL.Helpers;
 using LoggingSample_BLL.Models;
+using LoggingSample_BLL.Services.Interfaces;
 using LoggingSample_DAL.Context;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace LoggingSample_BLL.Services
 {
-    public class OrderService : IDisposable
+    public class OrderService : IOrderService
     {
         //TODO DI
         private readonly AppDbContext _context = new AppDbContext();

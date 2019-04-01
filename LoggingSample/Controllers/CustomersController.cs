@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Routing;
-using LoggingSample_BLL.Helpers;
 using LoggingSample_BLL.Models;
 using LoggingSample_BLL.Services;
-using LoggingSample_DAL.Context;
+using LoggingSample_BLL.Services.Interfaces;
 using NLog;
 
 namespace LoggingSample.Controllers
@@ -15,9 +13,13 @@ namespace LoggingSample.Controllers
     [RoutePrefix("api/customers")]
     public class CustomersController : ApiController
     {
-        //TODO DI
-        private readonly CustomerService _customerService = new CustomerService();
+        private readonly ICustomerService _customerService;
         private static Logger Logger = LogManager.GetCurrentClassLogger();
+
+        public CustomersController(ICustomerService customerService)
+        {
+            _customerService = customerService ?? throw new ArgumentNullException($"The {nameof(customerService)} can not be null.");
+        }
 
         [Route("")]
         public async Task<IHttpActionResult> Get()

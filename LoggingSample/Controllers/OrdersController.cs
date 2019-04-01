@@ -6,6 +6,7 @@ using System.Web.Http;
 using System.Web.Http.Routing;
 using LoggingSample_BLL.Models;
 using LoggingSample_BLL.Services;
+using LoggingSample_BLL.Services.Interfaces;
 using NLog;
 
 namespace LoggingSample.Controllers
@@ -13,9 +14,13 @@ namespace LoggingSample.Controllers
     [RoutePrefix("api")]
     public class OrdersController : ApiController
     {
-        //TODO DI
-        private readonly OrderService _orderService = new OrderService();
+        private readonly IOrderService _orderService;
         private readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
+        public OrdersController (IOrderService orderService)
+        {
+            _orderService = orderService ?? throw new ArgumentNullException($"The {nameof(orderService)} can not be null.");
+        }
 
         [Route("customers/{customerId}/orders", Name = "Orders")]
         public async Task<IHttpActionResult> Get(int customerId)

@@ -27,4 +27,31 @@
     <MessageSource>D:\EPAM\Laba\Days\Day11(Log)\Homework\LoggingSample\LoggingWorkshop\LoggingSample\Controllers\CustomersController.cs</MessageSource>
     <TimeStamp>2019-04-01T10:31:34.8982683+03:00</TimeStamp>
   </Log>
+  <Log>
+    <MachineName>DESKTOP-IB07L9B</MachineName>
+    <Exception />
+    <LoggerName>LoggingSample.Controllers.CustomersController</LoggerName>
+    <Level>Info</Level>
+    <Message>Start getting all customers.</Message>
+    <MessageSource>D:\EPAM\Laba\Days\Day11(Log)\Homework\LoggingSample\LoggingWorkshop\LoggingSample\Controllers\CustomersController.cs</MessageSource>
+    <TimeStamp>2019-04-01T11:33:03.9082348+03:00</TimeStamp>
+  </Log>
+  <Log>
+    <MachineName>DESKTOP-IB07L9B</MachineName>
+    <Exception />
+    <LoggerName>LoggingSample.Controllers.CustomersController</LoggerName>
+    <Level>Info</Level>
+    <Message>Start getting all customers.</Message>
+    <MessageSource>D:\EPAM\Laba\Days\Day11(Log)\Homework\LoggingSample\LoggingWorkshop\LoggingSample\Controllers\CustomersController.cs</MessageSource>
+    <TimeStamp>2019-04-01T13:34:27.0926211+03:00</TimeStamp>
+  </Log>
+  <Log>
+    <MachineName>DESKTOP-IB07L9B</MachineName>
+    <Exception />
+    <LoggerName>LoggingSample.Controllers.OrdersController</LoggerName>
+    <Level>Info</Level>
+    <Message>Start getting all orders.</Message>
+    <MessageSource>D:\EPAM\Laba\Days\Day11(Log)\Homework\LoggingSample\LoggingWorkshop\LoggingSample\Controllers\OrdersController.cs</MessageSource>
+    <TimeStamp>2019-04-01T13:44:19.031167+03:00</TimeStamp>
+  </Log>
 </Logs>
