@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Logs>
+  <Log>
+    <MachineName>DESKTOP-IB07L9B</MachineName>
+    <Exception />
+    <LoggerName>LoggingSample.Controllers.CustomersController</LoggerName>
+    <Level>Info</Level>
+    <Message>Start getting all customers.</Message>
+    <MessageSource>D:\EPAM\Laba\Days\Day11(Log)\Homework\LoggingSample\LoggingWorkshop\LoggingSample\Controllers\CustomersController.cs</MessageSource>
+    <TimeStamp>2019-04-01T10:31:00.7800141+03:00</TimeStamp>
+  </Log>
+  <Log>
+    <MachineName>DESKTOP-IB07L9B</MachineName>
+    <Exception />
+    <LoggerName>LoggingSample.Controllers.CustomersController</LoggerName>
+    <Level>Info</Level>
+    <Message>Start getting customer with id 1.</Message>
+    <MessageSource>D:\EPAM\Laba\Days\Day11(Log)\Homework\LoggingSample\LoggingWorkshop\LoggingSample\Controllers\CustomersController.cs</MessageSource>
+    <TimeStamp>2019-04-01T10:31:33.9516627+03:00</TimeStamp>
+  </Log>
+  <Log>
+    <MachineName>DESKTOP-IB07L9B</MachineName>
+    <Exception />
+    <LoggerName>LoggingSample.Controllers.CustomersController</LoggerName>
+    <Level>Info</Level>
+    <Message>Retrieving customer with id 1 to response.</Message>
+    <MessageSource>D:\EPAM\Laba\Days\Day11(Log)\Homework\LoggingSample\LoggingWorkshop\LoggingSample\Controllers\CustomersController.cs</MessageSource>
+    <TimeStamp>2019-04-01T10:31:34.8982683+03:00</TimeStamp>
+  </Log>
+</Logs>

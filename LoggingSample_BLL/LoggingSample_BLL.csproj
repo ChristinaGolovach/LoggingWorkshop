@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="Helpers\SimpleMapper.cs" />
     <Compile Include="LogTargets\DbTarget.cs" />
+    <Compile Include="LogTargets\XMLTarget.cs" />
     <Compile Include="Models\CustomerModel.cs" />
     <Compile Include="Models\OrderModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -75,7 +76,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
